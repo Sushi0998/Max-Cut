@@ -1,9 +1,7 @@
-
 #reading data file" name to be changed"
-dat <- read.table(file ="C:/Users/SURAJ SHINDE/OneDrive/Desktop/probablity/graph1.txt", header = TRUE)
-
+dat <- read.table(file ="C:/Users/SURAJ SHINDE/OneDrive/Desktop/TAMU Courses/probablity/graph1.txt", header = TRUE)
 #important values from data
-
+set.seed(123)
 Value<-max(dat)
 RowS <-nrow(dat)
 
@@ -11,13 +9,13 @@ RowS <-nrow(dat)
 
 current_conf<-list()
 
-#creating random numbers
+#creating random numbers, which will become the configuration (spin glass model)
 
-current_conf<- runif(Value,min =-1,max=1)
+current_conf<- runif(RowS,min =-1,max=1)
 
-#rounding the configuration
+#rounding the configuration to 0 and 1
 
-for (i in 1:Value){
+for (i in 1:RowS){
   if (current_conf[i]<0){
     current_conf[i]=-1
     
@@ -34,23 +32,23 @@ for (i in 1:Value){
 All_Max_value <-vector()
 #updating the best cut
 Best_cut <- list()
-
 #k = 10e6repetition, Beta (0,-1,-10)
 
+count = 0
+k <- 10000
+B<- 1                                          #value can be change to 0,-1,-10
+Best_value <- -1000                              #base value for the first iteration (reference in fro loop)
 
-k <- 100
-B<- 0                                              #value can be change to 0,-1,-10
-Best_value <- -100 #base value for the first iteration (reference in fro loop)
 for (i in 1:k){
   weight_proposed<-0                                        #INITIALISING weight_proposed
-  weight_current<-0                                        #INITIALISING weight_current
-  accept_value<-0                                        #INITIALISING accept_value
-  weight_diff<-0                                        #INITIALISING weight_diff
-  select <- round(runif(1, min = 1, max = Value))            #selecting 1 row in random 
+  weight_current<-0                                         #INITIALISING weight_current
+  accept_value<-0                                           #INITIALISING accept_value
+  
+  select <- round(runif(1, min = 1, max = RowS))            #selecting 1 row in random 
   
   flip <- current_conf[select] * (-1)                        #flipping the bit
   
-  Proposed_conf = replace (current_conf,select,flip)         #creating a list for proposed configuration using the flipped bit
+  Proposed_conf = replace (current_conf,select,flip)         #creating a list for proposed configuration using the flipped bit,which will help us to get the weighted cut
   
   for (l in 1:RowS){
     
@@ -60,33 +58,29 @@ for (i in 1:k){
 
   }
 
-  weight_diff <- weight_proposed - weight_current     #comparing the weight
-  #acceptance Function
-  accept_value <- (exp(-1*B*weight_diff))
-  #if the value is greater than 1 we accept the value and note all the max values
- 
+  #acceptance Function, using gibbs distribution
+  accept_value <- (exp(-1*B*(weight_proposed - weight_current)))
+  #if the value is greater than 1 we accept the proposed value and note all the max values
   if (accept_value >= 1){
-    
+    # we will accept the max values with  in weight_proposed weight_current in a list.
     All_Max_value = append (max(weight_current,weight_proposed),All_Max_value)
-    # making the proposed configuration as current configuration.
+    # making the proposed configuration as current configuration, which will be used in further iterations.
     current_conf <- Proposed_conf
-    # finding the maximum value
-    for (z in All_Max_value){
-      if (z>Best_value){
-        Best_value = z
-        Best_conf <- current_conf
-      }
+    # finding the maximum value, and updating the best configuration.
+    if (All_Max_value[i] >= Best_value){
+      Best_value = All_Max_value[i]
+      Best_conf <- current_conf
     }
     
   }
   if (is.na(accept_value)){
     next
   }
-  else{
-    next
+  # we accept the current values is the accepted value is less than 1
+  if(accept_value < 1){
+    All_Max_value = append (weight_current,All_Max_value)
+    current_conf <- current_conf
   }  
-    #verify this
-    # the only thing reaming is to store the configuration of maximum value
 }
 
 #plotting max cut values of for k iterations 
