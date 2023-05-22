@@ -11,7 +11,7 @@ The given the code strictly looks for the best value, the narure of the graph lo
 
 # Beta = 0
 
-![image](https://github.com/Sushi0998/CodeInR/assets/99321988/3ca44d18-f614-444e-8b95-f81bd746494b)
+![image](https://github.com/Sushi0998/CodeInR/assets/99321988/defc3c12-780d-4766-a853-d75d7bc7ffdd)
 
 The best value come out to be 292
 
