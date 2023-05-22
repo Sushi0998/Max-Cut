@@ -15,11 +15,11 @@ The given the code strictly looks for the best value, the narure of the graph lo
 
 The maximum cut value come out to be 192
 
-The search for the best value if very irregular 
+The search for the best value is very irregular 
 # Beta = -1 
 
 ![image](https://github.com/Sushi0998/CodeInR/assets/99321988/0bb30d7d-908f-4203-9cf4-77c65cdd5aa5)
 
 The maximum cut value come out to be 2165
 
-Yhe given the code strictly looks for the best value and looks a bit linear in downward direction. 
+The grapgh looks in a bit linear in downward direction. 
