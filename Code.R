@@ -34,9 +34,9 @@ All_Max_value <-vector()
 Best_cut <- list()
 #k = 10e6repetition, Beta (0,-1,-10)
 
-count = 0
-k <- 10000
-B<- 1                                          #value can be change to 0,-1,-10
+count = 0 
+k <- 100000
+B<- 0                                          #value can be change to -1,0,1
 Best_value <- -1000                              #base value for the first iteration (reference in fro loop)
 
 for (i in 1:k){
