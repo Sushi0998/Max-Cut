@@ -1,6 +1,6 @@
 # Introduction
 
-Simulated a Markov chain, and calculated the Max-cut (cut of a weighted garph) using a Spin glass model by implementing a acceptance function and receiving a stationary distribution using Metropolis-Hastings algorithm.
+Simulated a Markov chain Monte Carlo, and calculated the Max-cut (cut of a weighted garph) using a Spin glass model by implementing a acceptance function and receiving a stationary distribution using Metropolis-Hastings algorithm.
 
 # Beta = 1
 ![image](https://github.com/Sushi0998/CodeInR/assets/99321988/52b81bcc-e7b9-4c28-b44a-02a94badbe94)
